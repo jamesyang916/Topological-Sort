@@ -6,7 +6,7 @@ class Vertex {
 public:
 	Vertex(const T d);
 	const T getData() const { return data; };
-	const int getInDegree() const { return inDegree; };
+	int getinDegree() const { return inDegree; };
 	void addVertex(Vertex* v);
 	std::list<Vertex*>& getAdjList() { return adjList; };
 	Vertex& operator++() { ++inDegree; return *this; };

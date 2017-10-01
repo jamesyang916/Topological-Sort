@@ -4,93 +4,59 @@
 #include <vector>
 #include <queue>
 #include "CyclicGraphException.h"
-#include <iostream>
 
 template <class T>
 class Graph {
 public:
-	Graph(const int vNum);
-	void addEdge(Vertex<T>& u, Vertex<T>& v);
-	
+	Graph();
+	void addEdge(T u, T v);
+	std::unordered_map<T, Vertex<T>*>& getvMap() { return vMap; };
 private:
-	const int vNum;
-	std::unordered_map<T, Vertex<T>*> VertexMap;
+	std::unordered_map<T, Vertex<T>*> vMap;
 };
 
 template <class T>
-Graph<T>::Graph(const int vNum)
-	: vNum(vNum), VertexMap() {}
+Graph<T>::Graph()
+	: vMap() {}
 
 template <class T>
-void Graph<T>::addEdge(Vertex<T>& u, Vertex<T>& v) {
-	(u).addVertex(&v);
+void Graph<T>::addEdge(T u, T v) {
+	Vertex<T>* U = new Vertex<T>(u);
+	Vertex<T>* V = new Vertex<T>(v);
+	auto it_u = std::get<0>(vMap.emplace(u, U));
+	auto it_v = std::get<0>(vMap.emplace(v, V));
+	(*it_u->second).addVertex(it_v->second);
+	++(*it_v->second);
 }
 
-template <>
-class Graph<int> {
-public:
-	Graph(const int vNum);
-	void addVertex(const int u);
-	void addEdge(const int u, const int v);
-	void toposort();
-private:
-	int vNum;
-	int activeVnum;
-	std::vector<Vertex<int>*> VertexMap;
-	void printOrder(std::vector<Vertex<int>*>& vec) const;
-};
-
-Graph<int>::Graph(const int vNum)
-	: vNum(vNum), activeVnum(0), VertexMap(vNum + 1, nullptr) {}
-
-void Graph<int>::addVertex(const int u) {
-	if (u > vNum) {
-		throw std::out_of_range("Data not within the specified range.");
-	}
-	if (VertexMap[u] == nullptr) {
-		VertexMap[u] = new Vertex<int>(u);
-		++activeVnum;
-	}
-}
-void Graph<int>::addEdge(const int u, const int v) {
-	if (VertexMap[u] == nullptr)
-		addVertex(u);
-	if (VertexMap[v] == nullptr)
-		addVertex(v);
-	(*VertexMap[u]).addVertex(VertexMap[v]);
-	++(*VertexMap[v]);
-}
-
-void Graph<int>::printOrder(std::vector<Vertex<int>*>& vec) const {
-	for (auto it = vec.begin(); it != vec.end(); ++it) {
-		std::cout << (**it).getData() << ' ';
-	}
-	std::cout << std::endl;
-}
-void Graph<int>::toposort() {
-	std::queue<Vertex<int>* > q;
-	std::vector<Vertex<int>*> sorted;
-	int counter = 0;
-	for (auto it = VertexMap.begin(); it != VertexMap.end(); ++it) {
-		if (*it != nullptr && (**it).getInDegree() == 0) {
-			q.push(*it);
-		}
-	}
-
-	while (!q.empty()) {
-		auto v = q.front();
-		q.pop();
-		sorted.push_back(v);
-		for (auto u : (*v).getAdjList()) {
-			if ((--(*u)).getInDegree() == 0) {
-				q.push(u);
+namespace sort {
+	template <class T>
+	void topologicalSort(Graph<T>& G) {
+		std::vector<T> ordered;
+		std::queue<Vertex<T>*> q;
+		unsigned int counter = 0;
+		auto vMap = G.getvMap();
+		// Get Vertices with 0 inDegree
+		for (auto it = vMap.begin(); it != vMap.end(); ++it) {
+			if ((*it->second).getinDegree() == 0) {
+				q.push(it->second);
 			}
 		}
-		++counter;
+		
+		while (!q.empty()) {
+			auto v = q.front();
+			q.pop();
+			ordered.push_back((*v).getData());
+			for (auto u : (*v).getAdjList()) {
+				if ((--(*u)).getinDegree() == 0) {
+					q.push(u);
+				}
+			}
+			++counter;
+		}
+		if (counter != vMap.size()) {
+			throw CyclicGraphException();
+		}
+		sort::print(ordered.begin(), ordered.end());
 	}
-	if (counter != activeVnum) {
-		throw CyclicGraphException();
-	}
-
-	printOrder(sorted);
-}
+};

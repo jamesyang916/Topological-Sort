@@ -2,10 +2,18 @@
 #include "Graph.h"
 
 int main() {
-	
-	Graph<int> G(4241);
-	G.addVertex(3827);
-	G.addVertex(4241);
+	//Graph<int> G;
+	//G.addEdge(1, 3);
+	//G.addEdge(2, 4);
+	//G.addEdge(1, 4);
+	//G.addEdge(3, 2);
+	//try {
+	//	sort::topologicalSort(G);
+	//}
+	//catch (CyclicGraphException& e) {
+	//	std::cerr << e.what() << std::endl;
+	//}
+	Graph<int> G;
 	G.addEdge(1004, 3134);
 	G.addEdge(3134, 3157);
 	G.addEdge(3203, 3261);
@@ -24,7 +32,7 @@ int main() {
 	G.addEdge(4041, 4051);
 
 	try {
-		G.toposort();
+		sort::topologicalSort(G);
 	}
 	catch (CyclicGraphException& e) {
 		std::cerr << e.what() << std::endl;
