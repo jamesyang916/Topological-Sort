@@ -21,13 +21,13 @@
     <ClInclude Include="sort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="topological.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CyclicGraphException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tester.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -36,6 +36,9 @@
       <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="CyclicGraphException.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tester.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

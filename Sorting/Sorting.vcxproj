@@ -149,12 +149,13 @@
     <ClInclude Include="CyclicGraphException.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="sort.h" />
-    <ClInclude Include="topological.h" />
+    <ClInclude Include="Tester.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CyclicGraphException.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Tester.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
