@@ -1,4 +1,3 @@
 ﻿  main.cpp
-d:\james\programming files\c++ files\sorting\topological-sort\sorting\main.cpp(25): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-  Sorting.vcxproj -> D:\James\Programming Files\C++ Files\Sorting\Topological-Sort\Debug\Sorting.exe
-  Sorting.vcxproj -> D:\James\Programming Files\C++ Files\Sorting\Topological-Sort\Debug\Sorting.pdb (Full PDB)
+  Sorting.vcxproj -> C:\James\C++\Sorting\Debug\Sorting.exe
+  Sorting.vcxproj -> C:\James\C++\Sorting\Debug\Sorting.pdb (Full PDB)
